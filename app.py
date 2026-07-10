@@ -28,3 +28,13 @@ skills = extract_skills(cleaned_text)
 
 print("\nSkills Found:")
 print(skills)
+
+with open("job_description/jd.txt", "r") as file:
+    job_description = file.read()
+
+    cleaned_job = clean_text(job_description)
+
+job_skills = extract_skills(cleaned_job)
+
+print("\nJob Skills Found:")
+print(job_skills)
