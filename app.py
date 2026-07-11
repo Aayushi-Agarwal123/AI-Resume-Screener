@@ -33,6 +33,7 @@ print(skills)
 
 with open("job_description/jd.txt", "r") as file:
     job_description = file.read()
+    print(job_description)
 
     cleaned_job = clean_text(job_description)
 
@@ -41,8 +42,10 @@ job_skills = extract_skills(cleaned_job)
 print("\nJob Skills Found:")
 print(job_skills)
 
-matched_skills , score = calculate_score(skills , job_skills)
+matched_skills , missing_score , score = calculate_score(skills , job_skills)
 print("\nMatched skills:")
 print(matched_skills)
+print("\nMissing Skills")
+print(missing_score)
 print("\nATS Score:")
 print(f"{score:.2f}%")

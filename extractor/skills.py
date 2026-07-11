@@ -23,7 +23,8 @@ def extract_skills(text):
         "gcp",
         "tensorflow",
         "machine learning",
-        "deep learning"
+        "deep learning",
+        "kotlin"
 
     ]
 
