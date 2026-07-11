@@ -15,6 +15,8 @@ print(resume_text)
 from parser.pdf_parser import extract_text
 from preprocessing.text_cleaner import clean_text
 from extractor.skills import extract_skills
+from similarity.score import calculate_score
+
 
 resume_path = "resumes/Aayushi Agarwal Resume.pdf"
 
@@ -38,3 +40,7 @@ job_skills = extract_skills(cleaned_job)
 
 print("\nJob Skills Found:")
 print(job_skills)
+
+matched_skills = calculate_score(skills , job_skills)
+print("\nMatched skills:")
+print(matched_skills)
