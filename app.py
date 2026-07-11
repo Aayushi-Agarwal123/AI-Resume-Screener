@@ -16,6 +16,7 @@ from parser.pdf_parser import extract_text
 from preprocessing.text_cleaner import clean_text
 from extractor.skills import extract_skills
 from similarity.score import calculate_score
+from recommadation.recommadate import get_recommendations
 
 
 resume_path = "resumes/Aayushi Agarwal Resume.pdf"
@@ -42,10 +43,13 @@ job_skills = extract_skills(cleaned_job)
 print("\nJob Skills Found:")
 print(job_skills)
 
-matched_skills , missing_score , score = calculate_score(skills , job_skills)
+matched_skills , missing_skill , score = calculate_score(skills , job_skills)
+recommendations = get_recommendations(missing_skill)
 print("\nMatched skills:")
 print(matched_skills)
 print("\nMissing Skills")
-print(missing_score)
+print(missing_skill)
 print("\nATS Score:")
 print(f"{score:.2f}%")
+print("\nrecommadation")
+print(recommendations)
