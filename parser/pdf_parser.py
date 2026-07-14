@@ -1,8 +1,7 @@
 import fitz
 
-def extract_text(pdf_path):
-    document = fitz.open(pdf_path)
-
+def extract_text(pdf_input):
+    document = fitz.open(stream=pdf_input.read(), filetype="pdf")
     text = ""
 
     for page in document:
