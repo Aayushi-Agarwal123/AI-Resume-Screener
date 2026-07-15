@@ -1,139 +1,180 @@
 # AI Resume Screening and Scoring Tool
 
+is directly into your README.md and replace the GitHub link if needed.
 
-An AI-powered Resume Screening application built using **Python** and **Streamlit** that analyzes resumes against a Job Description (JD) and calculates an ATS (Applicant Tracking System) compatibility score.
+# 🤖 AI Resume Screener
 
----
-
-## 📌 Features
-
-- Upload Resume (PDF)
-- Paste Job Description
-- Extract Resume Text
-- Clean Resume Text
-- Extract Technical Skills
-- Calculate ATS Score
-- Display Matched Skills
-- Display Missing Skills
-- Qualification Analysis
-- Resume Recommendations
-- Resume Rating
+> An AI-powered Resume Screening application that compares a candidate's resume with a Job Description (JD), calculates an ATS (Applicant Tracking System) compatibility score, identifies missing skills, analyzes qualifications, and provides personalized recommendations.
 
 
----
+## 🌐 Live Demo
 
-## 🛠 Tech Stack
+🔗 **Application:** https://ai-resume-screener-bwmak2hlgambjdswypsbjf.streamlit.app
 
-- Python
-- Streamlit
-- PyMuPDF (fitz)
-- Regular Expressions (Regex)
 
----
+## 📂 GitHub Repository
 
-## 📂 Project Workflow
+🔗 https://github.com/Aayushi-Agarwal123/AI-Resume-Screener
 
-Resume Upload
-↓
 
-PDF Text Extraction
+# 📖 Overview
 
-↓
+Recruiters often receive hundreds of resumes for a single job opening. Manually reviewing each resume is time-consuming and inconsistent.
 
-Text Cleaning
+The **AI Resume Screener** automates the initial screening process by extracting resume content, identifying technical skills and educational qualifications, comparing them with the job description, and calculating an ATS compatibility score.
 
-↓
+The application also highlights missing skills and suggests learning recommendations to improve the candidate's resume.
 
-Skill Extraction
 
-↓
+# ✨ Features
 
-Qualification Extraction
+✅ Upload Resume (PDF)
 
-↓
+✅ Paste Job Description
 
-ATS Score Calculation
+✅ Automatic Resume Text Extraction
 
-↓
+✅ Resume Text Cleaning
 
-Matched Skills
+✅ Technical Skill Extraction
 
-↓
+✅ Educational Qualification Detection
 
-Missing Skills
+✅ ATS Compatibility Score
 
-↓
+✅ Matched Skills Analysis
 
-Recommendations
+✅ Missing Skills Detection
 
-↓
+✅ Qualification Matching
 
-Final Resume Verdict
+✅ Personalized Learning Recommendations
 
----
+✅ Interactive Streamlit Dashboard
 
-## 📊 Methodology
 
-The application follows the following workflow:
+# 🛠️ Tech Stack
 
-1. The user uploads a resume in PDF format.
-2. The PDF is parsed using PyMuPDF.
-3. Resume text is cleaned using Regular Expressions.
-4. Skills are extracted by comparing the resume with a predefined skill database.
-5. The Job Description is cleaned and processed similarly.
-6. Resume skills and Job Description skills are compared.
-7. An ATS score is calculated based on matched skills.
-8. Qualification is extracted and matched.
-9. Missing skills are identified.
-10. Learning recommendations are generated.
+| Category | Technologies |
+|----------|--------------|
+| Language | Python |
+| Framework | Streamlit |
+| PDF Parsing | PyMuPDF (fitz) |
+| Text Processing | Regular Expressions (Regex) |
+| Version Control | Git & GitHub |
 
----
+# 📂 Project Structure
 
-## ⚠ Limitations
+```text
+AI-Resume-Screener
+│
+├── streamlit_app.py
+├── app.py                  # CLI Testing Version
+├── requirements.txt
+│
+├── parser
+│   └── pdf_parser.py
+│
+├── preprocessing
+│   └── text_cleaner.py
+│
+├── extractor
+│   ├── skills.py
+│   └── Qualification.py
+│
+├── similarity
+│   └── score.py
+│
+├── recommadation
+│   └── recommadate.py
+│
+├── resumes
+├── job_description
+└── README.md
 
-Current limitations include:
 
-- Works only with PDF resumes.
-- Uses keyword-based skill extraction.
-- Cannot understand synonyms automatically.
-- Does not evaluate project quality.
-- Experience matching is limited.
-- Soft skills are not analyzed.
-- ATS score depends on keyword availability.
-- Images inside resumes are ignored.
+# ⚙️ How It Works
 
----
-
-## 🚀 Future Enhancements
-
-- Compare multiple resumes simultaneously.
-- AI-powered resume suggestions using LLMs.
-- Experience matching.
-- Certification analysis.
-- Export ATS Report as PDF.
-- Resume Ranking Dashboard.
-- DOCX Resume Support.
-- Job URL parsing.
-- Recruiter Dashboard.
-
----
-
-## 📈 Prototype Findings
-
-The prototype successfully performs:
-
-- Resume Parsing
-- ATS Score Calculation
-- Qualification Matching
-- Skill Matching
-- Missing Skill Detection
-- Resume Recommendation
-
-The application provides a quick evaluation of resume compatibility with a Job Description.
+```text
+Upload Resume (PDF)
+        │
+        ▼
+Extract Resume Text
+        │
+        ▼
+Clean Resume Text
+        │
+        ▼
+Extract Skills
+        │
+        ▼
+Extract Qualification
+        │
+        ▼
+Process Job Description
+        │
+        ▼
+Compare Resume & JD
+        │
+        ▼
+Calculate ATS Score
+        │
+        ▼
+Generate Recommendations
+```
 
 ---
 
-## 📷 Screenshots
+# 📊 ATS Score Calculation
+
+The ATS score is calculated by comparing the skills extracted from the resume with the skills found in the Job Description.
+
+```text
+ATS Score = (Matched Skills / Total Job Skills) × 100
+```
+
+The application displays:
+
+- Overall ATS Score
+- Matched Skills
+- Missing Skills
+- Qualification Match Status
+- Personalized Recommendations
+
+
+# 🎓 Qualification Analysis
+
+The application detects educational qualifications from both:
+
+- Resume
+- Job Description
+
+Supported qualifications include:
+
+- B.Tech
+- B.E.
+- BCA
+- MCA
+- B.Sc
+- M.Tech
+- Bachelor's Degree
+- Master's Degree
+
+The application indicates whether the candidate's qualification matches the job requirements.
+
+# 📚 Recommendations
+
+For every missing skill identified in the Job Description, the application generates personalized learning recommendations.
+
+Example:
+
+```
+Learn Docker
+Learn Kubernetes
+Learn AWS
+
+
+# 📷 Screenshots
 ![alt text](image.png)
 ![alt text](image-1.png)
 ![alt text](image-2.png)
@@ -146,7 +187,87 @@ The application provides a quick evaluation of resume compatibility with a Job D
 ![alt text](image-9.png)
 ![alt text](image-10.png)
 
+# 🚀 Getting Started
 
-## 👩‍💻 Developed By
+## Clone Repository
 
-Aayushi Agarwal
+```bash
+git clone https://github.com/Aayushi-Agarwal123/AI-Resume-Screener.git
+```
+
+## Move to Project Folder
+
+```bash
+cd AI-Resume-Screener
+```
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Run the Application
+
+```bash
+streamlit run streamlit_app.py
+```
+
+
+# 📈 Prototype Results
+
+The developed prototype successfully:
+
+- Extracts text from PDF resumes.
+- Detects technical skills.
+- Detects educational qualifications.
+- Compares resume skills with job requirements.
+- Calculates ATS compatibility score.
+- Highlights matched and missing skills.
+- Generates personalized recommendations.
+- Provides an interactive and easy-to-use interface.
+
+
+# ⚠️ Limitations
+
+- Supports PDF resumes only.
+- Uses keyword-based skill extraction.
+- Does not understand semantic similarity.
+- Does not evaluate soft skills.
+- Basic qualification matching.
+- Experience level analysis is limited.
+- Images inside resumes are ignored.
+
+
+# 🚀 Future Enhancements
+
+- Multiple Resume Comparison
+- Resume Ranking Dashboard
+- AI-powered Resume Suggestions
+- Experience Matching
+- Certification Analysis
+- Resume PDF Report Generation
+- DOCX Resume Support
+- Recruiter Dashboard
+- Job Description URL Analysis
+- NLP-based Skill Matching
+- Candidate Ranking System
+
+
+# 👩‍💻 Author
+
+**Aayushi Agarwal**
+
+B.Tech Computer Science Engineering
+
+Passionate about Full Stack Development, Cloud Computing, Artificial Intelligence, and Software Engineering.
+
+---
+
+# 📄 License
+
+This project is developed for educational and internship purposes.
+
+---
+
+## ⭐ If you found this project useful, consider giving it a Star on GitHub!
