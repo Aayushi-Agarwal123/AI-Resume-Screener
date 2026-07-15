@@ -12,11 +12,6 @@ is directly into your README.md and replace the GitHub link if needed.
 🔗 **Application:** https://ai-resume-screener-bwmak2hlgambjdswypsbjf.streamlit.app
 
 
-## 📂 GitHub Repository
-
-🔗 https://github.com/Aayushi-Agarwal123/AI-Resume-Screener
-
-
 # 📖 Overview
 
 Recruiters often receive hundreds of resumes for a single job opening. Manually reviewing each resume is time-consuming and inconsistent.
