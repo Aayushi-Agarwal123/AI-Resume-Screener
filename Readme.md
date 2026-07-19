@@ -255,7 +255,6 @@ The developed prototype successfully:
 
 B.Tech Computer Science Engineering
 
-Passionate about Full Stack Development, Cloud Computing, Artificial Intelligence, and Software Engineering.
 
 ---
 
