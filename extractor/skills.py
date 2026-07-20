@@ -37,4 +37,4 @@ def extract_skills(text):
         if skill in text:
             found_skills.append(skill)
 
-    return found_skills
+    return sorted(set(found_skills))

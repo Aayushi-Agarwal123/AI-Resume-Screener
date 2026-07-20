@@ -1,11 +1,36 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from datetime import datetime
+
+from parser.pdf_parser import extract_text
+from preprocessing.text_cleaner import clean_text
+from extractor.skills import extract_skills
+from similarity.score import calculate_score
+from recommadation.recommadate import get_recommendations
+from extractor.Qualification import extract_qualification
+from reports.pdf_reports import generate_report
+from ai_resume_coach import generate_ai_feedback
+
+
+# ---------------- Page Config ---------------- #
+
 st.set_page_config(
     page_title="AI Resume Screener",
     page_icon="🤖",
     layout="wide"
 )
+
+# ---------------- Session State ---------------- #
+
+if "results" not in st.session_state:
+    st.session_state.results = []
+
+if "analysis_done" not in st.session_state:
+    st.session_state.analysis_done = False
+
+# ---------------- Custom CSS ---------------- #
+
 st.markdown("""
 <style>
 
@@ -14,306 +39,384 @@ st.markdown("""
     padding-bottom:2rem;
 }
 
-h1{
+h1,h2,h3{
     color:#4F8BF9;
 }
 
 div[data-testid="stMetric"]{
-    background-color:#1E1E1E;
-    border-radius:12px;
-    padding:15px;
-    border:1px solid #333;
+    background:#111827;
+    padding:18px;
+    border-radius:15px;
+    border:1px solid #2f3542;
 }
 
-div.stButton > button{
+div.stButton>button{
     width:100%;
     height:55px;
     border-radius:12px;
     font-size:18px;
     font-weight:bold;
+    background:#4F8BF9;
+    color:white;
+}
+
+div.stButton>button:hover{
+    background:#2563EB;
 }
 
 </style>
-""",unsafe_allow_html=True)
-from parser.pdf_parser import extract_text
-from preprocessing.text_cleaner import clean_text
-from extractor.skills import extract_skills
-from similarity.score import calculate_score
-from recommadation.recommadate import get_recommendations
-from extractor.Qualification import extract_qualification
+""", unsafe_allow_html=True)
 
-st.title("🤖 AI Resume Screener")
+# ---------------- Title ---------------- #
+
+st.title("🤖 AI Resume Screener & Candidate Ranking System")
 
 st.markdown("""
-Analyze your resume against a Job Description using AI-powered ATS scoring.
+Analyze multiple resumes against a Job Description using AI-powered ATS scoring.
 
-✨ Upload Resume
-📄 Paste Job Description
-📊 Get ATS Score
-🎯 Improve Your Resume
+### Features
+
+- 📄 Multiple Resume Upload
+- 🎯 ATS Score
+- 🎓 Qualification Matching
+- 📊 Dashboard Analytics
+- 🏆 Candidate Ranking
+- 📈 Charts
+- 📄 PDF Report
+- 📥 CSV Export
+
 """)
+
+# ---------------- Sidebar ---------------- #
+
 with st.sidebar:
+
     st.header("📌 Instructions")
 
-    st.write("""
-1. Upload Resume (PDF)
-2. Paste Job Description
-3. Click Analyze Resume
-4. View ATS Score
-5. Improve Missing Skills
-    """)
+    st.info("""
+1️⃣ Upload one or more resumes
+
+2️⃣ Paste Job Description
+
+3️⃣ Click Analyze Resume
+
+4️⃣ Compare Candidates
+
+5️⃣ Download PDF / CSV Report
+""")
+
+            
+    
+
+    st.markdown(
+"""
+<div style="
+margin-top : 200px;
+text-align:center;
+font-size:11px;
+color:#6B7280;
+padding-bottom:5px;
+">
+
+🤖 AI Resume Screener
+
+Made by <b>Aayushi Agarwal</b>
+
+</div>
+""",
+unsafe_allow_html=True
+)
+
+
+# ---------------- Inputs ---------------- #
 
 st.divider()
+
 resumes = st.file_uploader(
-    "upload Multiple Resumes",
+    "📄 Upload Multiple Resumes",
     type=["pdf"],
     accept_multiple_files=True
 )
+
 jd = st.text_area(
-    "Job description",
-    height = 250 ,
-    placeholder = "Type Job Description "
+    "📋 Job Description",
+    height=250,
+    placeholder="Paste Job Description Here..."
 )
-analyze = st.button("🚀 Analyze Resume")
+
+analyze = st.button(
+    "🚀 Analyze Resume",
+    use_container_width=True
+)
+
+# ---------------- Analysis ---------------- #
+
 if analyze:
-    st.write("Analyzing Resume...")
 
     if not resumes:
-        st.error("Please upload at least one resume")
+        st.error("Please upload at least one resume.")
 
-    elif jd == "":
-        st.error("Please Paste Job Description")
+    elif jd.strip() == "":
+        st.error("Please paste the Job Description.")
 
     else:
-        
-        results = []
 
-    # ================= Job Description Processing =================
+        with st.spinner("Analyzing resumes..."):
 
-    cleaned_jd = clean_text(jd)
-    job_skills = extract_skills(cleaned_jd)
-    job_qualification = extract_qualification(cleaned_jd)
+            results = []
 
-    # ================= Resume Processing =================
+            cleaned_jd = clean_text(jd)
 
-    for resume in resumes:
+            job_skills = extract_skills(cleaned_jd)
 
-        st.subheader(f"📄 Candidate : {resume.name}")
+            job_qualification = extract_qualification(cleaned_jd)
 
-        resume_text = extract_text(resume)
+            # Resume Loop
 
-        cleaned_resume = clean_text(resume_text)
+            for resume in resumes:
+                st.subheader(f"📄 Candidate : {resume.name}")
 
-        resume_skills = extract_skills(cleaned_resume)
+                resume_text = extract_text(resume)
 
-        col1, col2 = st.columns(2)
+                cleaned_resume = clean_text(resume_text)
 
-        with col1:
-            st.subheader("🛠 Resume Skills")
-            st.write(resume_skills)
+                resume_skills = extract_skills(cleaned_resume)
 
-        with col2:
-            st.subheader("📋 Job Skills")
-            st.write(job_skills)
+                resume_qualification = extract_qualification(
+                    cleaned_resume
+                )
 
-        # ================= Qualification =================
+                matched_skills, missing_skills, score = calculate_score(
+                    resume_skills,
+                    job_skills
+                )
 
-        resume_qualification = extract_qualification(cleaned_resume)
+                matched_qualification = []
 
-        matched_qualification = []
-
-        for qualification in resume_qualification:
-            if qualification in job_qualification:
-                matched_qualification.append(qualification)
-
-        st.subheader("🎓 Qualification Analysis")
-
-        col1, col2 = st.columns(2)
-
-        with col1:
-            st.subheader("🎓 Resume Qualification")
-
-            if resume_qualification:
                 for qualification in resume_qualification:
-                    st.success(qualification)
-            else:
-                st.warning("No qualification found in Resume.")
 
-        with col2:
-            st.subheader("📋 Required Qualification")
+                    if qualification in job_qualification:
 
-            if job_qualification:
-                for qualification in job_qualification:
-                    st.info(qualification)
-            else:
-                st.warning("No qualification mentioned in Job Description.")
+                        matched_qualification.append(
+                            qualification
+                        )
 
-                    # ----------- Qualification Status --------------
+                # ---------------- Candidate Card ---------------- #
 
-        st.subheader("🎯 Qualification Status")
+                with st.expander(
+                    f"👤 {resume.name} | ATS : {score:.2f}%"
+                ):
 
-        if matched_qualification:
-            st.success("✅ Qualification Matched")
-        else:
-            st.error("❌ Qualification Not Matched")
+                    col1, col2 = st.columns(2)
 
-        # ================= ATS Score =================
+                    with col1:
 
-        matched_skills, missing_skills, score = calculate_score(
-            resume_skills,
-            job_skills
-        )
+                        st.subheader("🛠 Resume Skills")
 
-        st.subheader("📊 ATS Score")
+                        st.write(resume_skills)
 
-        st.metric(
-            label="Overall Match",
-            value=f"{score:.2f}%"
-        )
+                    with col2:
 
-        st.progress(int(score))
+                        st.subheader("📋 Job Skills")
 
-        if score >= 80:
-            st.success("🎉 Excellent Resume Match!")
+                        st.write(job_skills)
 
-        elif score >= 60:
-            st.warning("👍 Good Match. Improve the missing skills.")
+                    st.divider()
 
-        else:
-            st.error("⚠️ Low ATS Score. Improve your resume.")
+                    col1, col2 = st.columns(2)
 
-        # ================= Matched Skills =================
+                    with col1:
 
-        st.subheader("✅ Matched Skills")
+                        st.subheader("🎓 Resume Qualification")
 
-        if matched_skills:
-            for skill in matched_skills:
-                st.success(skill)
-        else:
-            st.warning("No matched skills found.")
+                        if resume_qualification:
 
-        # ================= Missing Skills =================
+                            for qualification in resume_qualification:
 
-        st.subheader("❌ Missing Skills")
+                                st.success(qualification)
 
-        if missing_skills:
-            for skill in missing_skills:
-                st.error(skill)
-        else:
-            st.success("No missing skills found.")
+                        else:
 
-        # ================= Analysis Summary =================
+                            st.warning(
+                                "No qualification found."
+                            )
 
-        st.subheader("📈 Analysis Summary")
+                    with col2:
 
-        col1, col2, col3 = st.columns(3)
+                        st.subheader("📚 Required Qualification")
 
-        with col1:
-            st.metric("Matched Skills", len(matched_skills))
+                        if job_qualification:
 
-        with col2:
-            st.metric("Missing Skills", len(missing_skills))
+                            for qualification in job_qualification:
 
-        with col3:
-            st.metric("Qualifications", len(matched_qualification))
+                                st.info(qualification)
 
-        # ================= Resume Strength =================
+                        else:
 
-        st.subheader("💪 Resume Strength")
+                            st.warning(
+                                "No qualification mentioned."
+                            )
 
-        strengths = []
+                    st.divider()
 
-        if len(matched_skills) >= 5:
-            strengths.append("Strong technical skill set")
+                    st.subheader("📊 ATS Score")
 
-        if matched_qualification:
-            strengths.append("Qualification matches the job requirements")
+                    st.metric(
+                        "Overall Match",
+                        f"{score:.2f}%"
+                    )
 
-        if score >= 80:
-            strengths.append("High ATS compatibility")
+                    st.progress(int(score))
 
-        if strengths:
-            for strength in strengths:
-                st.success("✔ " + strength)
-        else:
-            st.warning("No major strengths identified.")
+                    if score >= 80:
 
-        # ================= Recommendations =================
+                        st.success(
+                            "🎉 Excellent Resume Match"
+                        )
 
-        recommendations = get_recommendations(missing_skills)
+                    elif score >= 60:
 
-        st.subheader("📚 Recommendations")
+                        st.warning(
+                            "👍 Good Match"
+                        )
 
-        for recommendation in recommendations:
-            st.info(recommendation)
+                    else:
 
-        # ================= Resume Verdict =================
+                        st.error(
+                            "⚠ Needs Improvement"
+                        )
 
-        st.subheader("🏆 Final Resume Verdict")
+                    st.divider()
 
-        if score >= 80 and matched_qualification:
-            st.success("🎯 Excellent Candidate - Recommended for Interview")
+                    st.subheader("✅ Matched Skills")
 
-        elif score >= 60:
-            st.warning("👍 Good Candidate - Improve missing skills for a better match.")
+                    for skill in matched_skills:
 
-        else:
-            st.error("📌 Resume needs improvement before applying.")
+                        st.success(skill)
 
-        # ================= Candidate Summary =================
+                    st.subheader("❌ Missing Skills")
 
-        st.success("🎉 Resume analysis completed successfully!")
+                    for skill in missing_skills:
 
-        st.subheader("📋 Candidate Summary")
+                        st.error(skill)
 
-        st.write(f"🎯 ATS Score : {score:.2f}%")
-        st.write(f"✅ Matched Skills : {len(matched_skills)}")
-        st.write(f"❌ Missing Skills : {len(missing_skills)}")
+                    recommendations = get_recommendations(
+                        missing_skills
+                    )
 
-        if matched_qualification:
-            st.write("🎓 Qualification : Matched ✅")
-        else:
-            st.write("🎓 Qualification : Not Matched ❌")
+                    # ================= Recommendations =================
 
-        # ================= Save Candidate =================
+                    st.subheader("📚 Recommendations")
 
-        results.append({
-            "Rank": len(results) + 1,
-            "Candidate": resume.name,
-            "Score": score,
-            "Matched Skills": len(matched_skills),
-            "Missing Skills": len(missing_skills),
-            "Qualification": "Matched" if matched_qualification else "Not Matched",
-            "Status": (
-            "Excellent" if score >= 80
-            else "Good" if score >= 60
-            else "Needs Improvement"
-            )
-        })
+                    recommendations = get_recommendations(missing_skills)
 
-        st.divider()
+                    if recommendations:
 
-    # ================= Ranking =================
+                        for recommendation in recommendations:
+                                st.info(recommendation)
 
-        # ================= Sort Candidates =================
+                    else:
+                             st.success("✅ No recommendations. All required skills are present.")
+
+# ================= AI Resume Coach =================
+
+                    st.subheader("🤖 AI Resume Coach")
+
+                    feedback = generate_ai_feedback(
+                    score,
+                    matched_skills,
+                    missing_skills,
+                    matched_qualification
+)
+
+                    st.info(feedback)
+
+                       
+                    
+                        
+
+                # ---------------- Save Result ---------------- #
+
+                results.append({
+
+                    "Rank": len(results) + 1,
+
+                    "Candidate": resume.name,
+
+                    "Score": score,
+
+                    "Matched Skills": len(
+                        matched_skills
+                    ),
+
+                    "Missing Skills": len(
+                        missing_skills
+                    ),
+
+                    "Qualification":
+
+                        "Matched"
+
+                        if matched_qualification
+
+                        else "Not Matched",
+
+                    "Status":
+
+                        "Excellent"
+
+                        if score >= 80
+
+                        else
+
+                        "Good"
+
+                        if score >= 60
+
+                        else
+
+                        "Needs Improvement"
+
+                })
+
+            # Resume Loop Finished
+
+            st.session_state.results = results
+
+            st.session_state.analysis_done = True
+
+            # ================= Dashboard ================= #
+
+if st.session_state.analysis_done:
+
+    results = st.session_state.results
 
     results.sort(
         key=lambda x: x["Score"],
         reverse=True
     )
 
-    # ================= Dashboard Overview =================
-
     total_candidates = len(results)
 
-    highest_score = max(candidate["Score"] for candidate in results)
+    highest_score = max(
+        candidate["Score"]
+        for candidate in results
+    )
 
-    average_score = sum(candidate["Score"] for candidate in results) / total_candidates
+    average_score = sum(
+        candidate["Score"]
+        for candidate in results
+    ) / total_candidates
 
     qualified_candidates = sum(
-        1 for candidate in results
+        1
+        for candidate in results
         if candidate["Qualification"] == "Matched"
     )
+
+    best_candidate = results[0]
+
+    st.divider()
 
     st.header("📊 Dashboard Overview")
 
@@ -321,7 +424,7 @@ if analyze:
 
     with col1:
         st.metric(
-            "👥 Total Candidates",
+            "👥 Candidates",
             total_candidates
         )
 
@@ -345,119 +448,247 @@ if analyze:
 
     st.divider()
 
-    # ================= Best Candidate =================
-
-    best_candidate = results[0]
+    # ================= Best Candidate ================= #
 
     st.header("🥇 Best Candidate")
 
     st.success(
-      
         f"""
-        🏆 Candidate Name : {best_candidate['Candidate']}
+🏆 Candidate : {best_candidate['Candidate']}
 
-        ⭐ ATS Score : {best_candidate['Score']:.2f}%
+⭐ ATS Score : {best_candidate['Score']:.2f}%
 
-        🎓 Qualification : {best_candidate['Qualification']}
+🎓 Qualification : {best_candidate['Qualification']}
 
-        🚀 Recommendation : Recommended for Interview
-    """
-)
-    
+🚀 Status : {best_candidate['Status']}
+"""
+    )
 
     st.divider()
 
-    # ================= Candidate Ranking =================
+    # ================= Search ================= #
 
-    st.header("🏆 Candidate Ranking")
+    st.header("🔍 Search Candidate")
 
-    rank = 1
+    search = st.text_input(
+        "Search Candidate Name"
+    )
 
-    for candidate in results:
+    # ================= Filter ================= #
 
-        if rank == 1:
-            medal = "🥇"
+    status_filter = st.selectbox(
 
-        elif rank == 2:
-            medal = "🥈"
+        "Filter by Status",
 
-        elif rank == 3:
-            medal = "🥉"
+        [
+            "All",
+            "Excellent",
+            "Good",
+            "Needs Improvement"
+        ]
+    )
 
-        else:
-            medal = f"#{rank}"
+    df = pd.DataFrame(results)
 
-        st.subheader(f"{medal} {candidate['Candidate']}")
+    filtered_df = df.copy()
 
-        col1, col2, col3 = st.columns(3)
+    if search:
 
-        with col1:
-            st.metric(
-                "ATS Score",
-                f"{candidate['Score']:.2f}%"
+        filtered_df = filtered_df[
+            filtered_df["Candidate"].str.contains(
+                search,
+                case=False,
+                na=False
             )
+        ]
 
-        with col2:
-            st.metric(
-                "Matched Skills",
-                candidate["Matched Skills"]
-            )
+    if status_filter != "All":
 
-        with col3:
-            st.metric(
-                "Missing Skills",
-                candidate["Missing Skills"]
-            )
+        filtered_df = filtered_df[
+            filtered_df["Status"] == status_filter
+        ]
 
-        st.write(
-            f"🎓 Qualification : {candidate['Qualification']}"
-        )
-        if candidate["Score"] >= 80:
-            st.success("🟢 Excellent Match")
+    st.divider()
 
-        elif candidate["Score"] >= 60:
-            st.warning("🟡 Good Match")
-
-        else:
-            st.error("🔴 Needs Improvement")
-
-        st.divider()
-
-        rank += 1
-
-    # ================= Comparison Table =================
+    # ================= Comparison Table ================= #
 
     st.header("📋 Candidate Comparison")
 
     st.dataframe(
-        results,
-        use_container_width=True
+        filtered_df,
+        use_container_width=True,
+        hide_index=True
     )
+
+    st.divider()
+
+    # ================= Candidate Ranking ================= #
+
+    st.header("🏆 Candidate Ranking")
+
+    for index, candidate in enumerate(results, start=1):
+
+        if index == 1:
+            medal = "🥇"
+
+        elif index == 2:
+            medal = "🥈"
+
+        elif index == 3:
+            medal = "🥉"
+
+        else:
+            medal = f"#{index}"
+
+        with st.expander(
+            f"{medal} {candidate['Candidate']}"
+        ):
+
+            c1, c2, c3 = st.columns(3)
+
+            with c1:
+                st.metric(
+                    "ATS",
+                    f"{candidate['Score']:.2f}%"
+                )
+
+            with c2:
+                st.metric(
+                    "Matched Skills",
+                    candidate["Matched Skills"]
+                )
+
+            with c3:
+                st.metric(
+                    "Missing Skills",
+                    candidate["Missing Skills"]
+                )
+
+            st.write(
+                f"🎓 Qualification : {candidate['Qualification']}"
+            )
+
+            st.write(
+                f"📌 Status : {candidate['Status']}"
+            )
+
+                # ================= ATS Score Chart ================= #
+
+    st.divider()
+
     st.header("📊 ATS Score Comparison")
 
-df = pd.DataFrame(results)
+    fig = px.bar(
+        filtered_df,
+        x="Candidate",
+        y="Score",
+        color="Status",
+        text="Score",
+        title="Candidate ATS Score Comparison"
+    )
 
-fig = px.bar(
-    df,
-    x="Candidate",
-    y="Score",
-    color="Score",
-    text="Score",
-    title="ATS Score Comparison"
-)
+    fig.update_traces(
+        texttemplate="%{text:.2f}%",
+        textposition="outside"
+    )
 
-fig.update_traces(
-    texttemplate="%{text:.2f}%",
-    textposition="outside"
-)
+    fig.update_layout(
+        yaxis_range=[0, 100],
+        xaxis_title="Candidates",
+        yaxis_title="ATS Score (%)",
+        height=500
+    )
 
-fig.update_layout(
-    xaxis_title="Candidates",
-    yaxis_title="ATS Score (%)",
-    yaxis_range=[0, 100]
-)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
-st.plotly_chart(
-    fig,
-    use_container_width=True
-)
+    # ================= Status Distribution ================= #
+
+    st.header("🥧 Candidate Status Distribution")
+
+    pie = px.pie(
+        filtered_df,
+        names="Status",
+        title="Candidate Status"
+    )
+
+    st.plotly_chart(
+        pie,
+        use_container_width=True
+    )
+
+    # ================= CSV Download ================= #
+
+    st.divider()
+
+    st.header("📥 Download Reports")
+
+    csv = filtered_df.to_csv(index=False)
+
+    st.download_button(
+        label="📥 Download CSV Report",
+        data=csv,
+        file_name="Candidate_Report.csv",
+        mime="text/csv"
+    )
+
+    # ================= PDF Download ================= #
+
+    pdf_file = generate_report(
+        results,
+        best_candidate,
+        total_candidates,
+        highest_score,
+        average_score,
+        qualified_candidates
+    )
+
+    with open(pdf_file, "rb") as file:
+
+        st.download_button(
+            label="📄 Download Hiring Report (PDF)",
+            data=file,
+            file_name="Hiring_Report.pdf",
+            mime="application/pdf"
+        )
+
+    # ================= Report Information ================= #
+
+    st.divider()
+
+    st.info(
+        f"""
+📅 Report Generated :
+
+{datetime.now().strftime("%d %B %Y | %I:%M %p")}
+
+📊 Total Candidates : {total_candidates}
+
+🏆 Best Candidate : {best_candidate['Candidate']}
+"""
+    )
+
+    # ================= Footer ================= #
+
+    st.divider()
+
+    st.markdown(
+        """
+<center>
+
+### 🤖 AI Resume Screener & Candidate Ranking System
+
+Developed using
+
+🐍 Python • ⚡ Streamlit • 📊 Plotly • 📄 ReportLab
+
+© 2026 Aayushi Agarwal
+
+</center>
+""",
+        unsafe_allow_html=True
+    )
+
+                
