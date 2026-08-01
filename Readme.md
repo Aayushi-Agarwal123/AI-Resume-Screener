@@ -1,61 +1,89 @@
 # 🤖 AI Resume Screener & Candidate Ranking System
 
-An intelligent AI-powered Resume Screening and Candidate Ranking System developed using **Python** and **Streamlit**. The application helps recruiters efficiently analyze multiple resumes against a Job Description (JD), calculate ATS compatibility scores, identify skill gaps, rank candidates, and generate professional hiring reports.
+An AI-powered Resume Screening and Candidate Ranking System built using **Python** and **Streamlit** that helps recruiters efficiently analyze multiple resumes against a Job Description (JD). The application calculates ATS compatibility scores, identifies skill gaps, ranks candidates, and generates professional hiring reports.
+
+> **🚀 Project Status:** Currently being upgraded with a modern frontend built using **React.js**, **TypeScript**, and **Tailwind CSS**. New AI-powered features, including **Resume Tailoring**, are under active development.
 
 ---
 
 ## 🌐 Live Demo
+
 https://ai-resume-screener-ynpp.onrender.com
 
-## ✨ Features
+---
 
-- 📄 Upload Multiple Resume PDFs
-- 📋 Job Description Analysis
-- 🤖 ATS Score Calculation
-- 🛠 Skill Matching
-- ❌ Missing Skills Detection
-- 🎓 Qualification Matching
-- 📊 Recruiter Dashboard
-- 🏆 Candidate Ranking
-- 🥇 Best Candidate Identification
-- 💡 Smart Resume Feedback
-- 📑 PDF Hiring Report Generation
-- 📥 CSV Report Export
-- 🔍 Candidate Search
-- 📈 Interactive Data Visualization
+# ✨ Features
+
+### Current Features
+
+* 📄 Upload Multiple Resume PDFs
+* 📋 Job Description Analysis
+* 🤖 ATS Score Calculation
+* 🛠️ Skill Matching
+* ❌ Missing Skills Detection
+* 🎓 Qualification Matching
+* 🏆 Candidate Ranking
+* 🥇 Best Candidate Identification
+* 📊 Recruiter Dashboard
+* 💡 Smart Resume Feedback
+* 📑 PDF Hiring Report Generation
+* 📥 CSV Report Export
+* 🔍 Candidate Search
+* 📈 Interactive Data Visualization
 
 ---
 
-## 🛠 Tech Stack
+# 🚀 Upcoming Features (Work in Progress)
 
-### Frontend
-
-- Streamlit
-
-### Backend
-
-- Python
-
-### Libraries
-
-- Pandas
-- Plotly
-- PyMuPDF
-- ReportLab
-
-### Core Modules
-
-- Resume Parsing
-- Skill Extraction
-- ATS Score Engine
-- Candidate Ranking
-- Qualification Matching
-- PDF Report Generation
-- CSV Report Export
+* ⚛️ Modern Frontend using **React.js + TypeScript**
+* 🎨 Responsive UI with **Tailwind CSS**
+* ✨ AI Resume Tailoring based on Job Description
+* 🤖 AI Resume Improvement Suggestions
+* 📝 Resume Keyword Optimization
+* 📄 ATS-Friendly Resume Generation
+* 🔐 User Authentication
+* ☁️ Database Integration
+* 📊 Advanced Recruiter Dashboard
+* 📈 Enhanced Analytics & Charts
 
 ---
 
-## 📂 Project Structure
+# 🛠️ Tech Stack
+
+## Frontend (Current)
+
+* Streamlit
+
+## Frontend (Upcoming)
+
+* React.js
+* TypeScript
+* Tailwind CSS
+
+## Backend
+
+* Python
+
+## Libraries
+
+* Pandas
+* Plotly
+* PyMuPDF
+* ReportLab
+
+## Core Modules
+
+* Resume Parsing
+* Skill Extraction
+* ATS Score Engine
+* Candidate Ranking
+* Qualification Matching
+* PDF Report Generation
+* CSV Report Export
+
+---
+
+# 📂 Project Structure
 
 ```text
 AI-Resume-Screener/
@@ -72,7 +100,7 @@ AI-Resume-Screener/
 
 ---
 
-## ⚙ Installation
+# ⚙️ Installation
 
 ### Clone Repository
 
@@ -100,48 +128,65 @@ streamlit run streamlit_app.py
 
 ---
 
-## 📊 Workflow
+# 📊 Workflow
 
-1. Upload one or more resume PDFs.
+1. Upload one or more Resume PDFs.
 2. Paste the Job Description.
 3. Click **Analyze Resume**.
-4. Compare ATS scores.
-5. View skill matching and qualification analysis.
-6. Review candidate rankings.
+4. Compare ATS compatibility scores.
+5. Review skill matching and qualification analysis.
+6. View candidate rankings.
 7. Download PDF hiring reports.
 8. Export candidate data as CSV.
-9. Review Smart Resume Feedback.
+9. Review AI-generated resume feedback.
 
 ---
 
-## 📌 Key Highlights
+# 📌 Key Highlights
 
-- ATS-Based Resume Evaluation
-- Intelligent Skill Matching
-- Candidate Ranking System
-- Professional Hiring Reports
-- Recruiter-Friendly Dashboard
-- Interactive Analytics
-- Clean & Responsive UI
+* ATS-Based Resume Evaluation
+* AI-Powered Skill Matching
+* Intelligent Candidate Ranking
+* Professional Hiring Reports
+* Recruiter-Friendly Dashboard
+* Interactive Data Visualization
+* Responsive and User-Friendly Interface
+* Multi-Resume Analysis
 
 ---
 
-## 👩‍💻 Developed By
+# 🔄 Current Development
 
-### Aayushi Agarwal
+The project is actively evolving into a complete AI Recruitment Platform.
 
-**Full Stack Developer | Python | MERN Stack | AI Enthusiast**
+### Currently in Development
+
+* ✅ React.js + TypeScript Frontend
+* ✅ Tailwind CSS UI Redesign
+* 🔄 AI Resume Tailoring
+* 🔄 Resume Optimization Suggestions
+* 🔄 Improved ATS Scoring Algorithm
+* 🔄 Better Dashboard & Analytics
+* 🔄 Authentication & Database Support
+
+Stay tuned for upcoming updates!
+
+---
+
+# 👩‍💻 Developed By
+
+**Aayushi Agarwal**
+
+**Full Stack Developer | MERN Stack | Python | AI Enthusiast**
 
 GitHub:
-**https://github.com/Aayushi-Agarwal123**
+https://github.com/Aayushi-Agarwal123
 
 LinkedIn:
-www.linkedin.com/in/aayushi-agarwal-961a47333
-
-
+https://www.linkedin.com/in/aayushi-agarwal-961a47333
 
 ---
 
-## ⭐ Support
+# ⭐ Support
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+If you found this project useful, please consider giving it a ⭐ on GitHub. Your support motivates further improvements and new features!
