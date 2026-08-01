@@ -41,8 +41,6 @@ https://ai-resume-screener-ynpp.onrender.com
 * 🤖 AI Resume Improvement Suggestions
 * 📝 Resume Keyword Optimization
 * 📄 ATS-Friendly Resume Generation
-* 🔐 User Authentication
-* ☁️ Database Integration
 * 📊 Advanced Recruiter Dashboard
 * 📈 Enhanced Analytics & Charts
 
