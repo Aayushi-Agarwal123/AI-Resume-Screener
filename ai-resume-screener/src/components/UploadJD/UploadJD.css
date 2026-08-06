@@ -1,0 +1,83 @@
+.jd-card{
+
+    margin-bottom:35px;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.jd-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.jd-header h2{
+
+    color:white;
+
+    font-size:28px;
+
+}
+
+.jd-header span{
+
+    color:#38bdf8;
+
+    font-size:14px;
+
+}
+
+.jd-card textarea{
+
+    width:100%;
+
+    height:240px;
+
+    resize:none;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    background:#0f172a;
+
+    color:white;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.jd-card textarea::placeholder{
+
+    color:#64748b;
+
+}
+
+.jd-card textarea:focus{
+
+    border:1px solid #38bdf8;
+
+}
