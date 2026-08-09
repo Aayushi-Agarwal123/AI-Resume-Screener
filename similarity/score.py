@@ -22,6 +22,6 @@ def calculate_score(resume_skills, job_skills):
     if len(job_skills) == 0:
         score = 0
     else:
-        score = (len(matched_skills) / len(job_skills)) * 100
+        score = round((len(matched_skills) / len(job_skills)) * 100, 2)
 
     return matched_skills, missing_skills, score
