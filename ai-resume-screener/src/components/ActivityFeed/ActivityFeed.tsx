@@ -1,3 +1,4 @@
+
 import "./ActivityFeed.css";
 
 type Props = {
@@ -5,9 +6,7 @@ type Props = {
 };
 
 function ActivityFeed({ candidates }: Props) {
-
   return (
-
     <section className="activity">
 
       <h2>📝 Recent Analysis</h2>
@@ -25,7 +24,7 @@ function ActivityFeed({ candidates }: Props) {
 
             <p>
               ATS Score :
-              <strong> {candidate.ats_score}%</strong>
+              <strong> {Number(candidate.ats_score).toFixed(2)}%</strong>
             </p>
 
             <p>
@@ -34,19 +33,19 @@ function ActivityFeed({ candidates }: Props) {
 
               <span
                 className={
-                  candidate.ats_score >= 85
-                    ? "hire"
-                    : candidate.ats_score >= 70
-                    ? "shortlist"
-                    : "review"
+                  candidate.ats_score >= 80
+                    ? "strong-match"
+                    : candidate.ats_score >= 60
+                    ? "potential-match"
+                    : "needs-review"
                 }
               >
 
-                {candidate.ats_score >= 85
-                  ? "Hire"
-                  : candidate.ats_score >= 70
-                  ? "Shortlist"
-                  : "Review"}
+                {candidate.ats_score >= 80
+                  ? "Strong Match"
+                  : candidate.ats_score >= 60
+                  ? "Potential Match"
+                  : "Needs Review"}
 
               </span>
 
@@ -59,9 +58,7 @@ function ActivityFeed({ candidates }: Props) {
       </div>
 
     </section>
-
   );
-
 }
 
 export default ActivityFeed;
