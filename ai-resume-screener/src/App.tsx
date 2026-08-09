@@ -103,7 +103,7 @@ function App() {
 
 
       const response = await fetch(
-  "https://ai-resume-screener-ynpp.onrender.com/analyze",
+  "https://ai-resume-screener-ynpp.onrender.com",
   {
     method: "POST",
     body: formData,
