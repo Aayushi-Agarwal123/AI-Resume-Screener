@@ -102,15 +102,14 @@ function App() {
         }, 60000);
 
 
-      const response =
-        await fetch(
-          "http://127.0.0.1:8000/analyze",
-          {
-            method: "POST",
-            body: formData,
-            signal: controller.signal,
-          }
-        );
+      const response = await fetch(
+  "https://ai-resume-screener-ynpp.onrender.com/analyze",
+  {
+    method: "POST",
+    body: formData,
+    signal: controller.signal,
+  }
+);
 
 
       clearTimeout(timeoutId);
