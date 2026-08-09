@@ -3,7 +3,7 @@ import {
   FiSearch,
   FiDownload,
   FiFileText,
-  FiFilter,
+  
 } from "react-icons/fi";
 
 function RecruiterToolbar() {
