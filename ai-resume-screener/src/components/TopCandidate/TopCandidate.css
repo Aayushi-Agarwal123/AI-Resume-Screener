@@ -1,0 +1,383 @@
+/* =========================================================
+   TOP CANDIDATE SECTION
+   ========================================================= */
+
+.top-candidate {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 40px;
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 45px;
+  margin: 50px 0;
+
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   BLUE GLOW
+   ========================================================= */
+
+.top-candidate .candidate-glow {
+  position: absolute;
+
+  width: 350px;
+  height: 350px;
+
+  right: -120px;
+  top: -100px;
+
+  background: #2563eb;
+
+  filter: blur(150px);
+
+  opacity: 0.18;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+   ========================================================= */
+
+.top-candidate .candidate-left {
+  position: relative;
+  z-index: 2;
+
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   AI TOP CANDIDATE BADGE
+   ========================================================= */
+
+.top-candidate .badge {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+
+  width: fit-content;
+
+  padding: 10px 18px;
+
+  margin: 0 0 20px 0;
+
+  border-radius: 999px;
+
+  background: rgba(56, 189, 248, 0.15);
+
+  color: #38bdf8;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  position: relative;
+  z-index: 3;
+}
+
+.top-candidate .badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* =========================================================
+   CANDIDATE NAME
+   ========================================================= */
+
+.top-candidate .candidate-left h2 {
+  margin: 0 0 15px 0;
+
+  color: #f8fafc;
+
+  font-size: 42px;
+
+  line-height: 1.15;
+
+  font-weight: 800;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.top-candidate .candidate-left > p {
+  margin: 0 0 25px 0;
+
+  max-width: 500px;
+
+  color: #94a3b8;
+
+  line-height: 1.8;
+
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+
+.top-candidate .candidate-skills {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+}
+
+.top-candidate .candidate-skills span {
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
+  background: #132033;
+
+  color: #38bdf8;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  border: 1px solid rgba(56, 189, 248, 0.12);
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+   ========================================================= */
+
+.top-candidate .candidate-right {
+  position: relative;
+
+  z-index: 2;
+
+  width: 230px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 25px;
+}
+
+
+/* =========================================================
+   ATS SCORE CIRCLE
+   ========================================================= */
+
+.top-candidate .score-circle {
+  width: 190px;
+  height: 190px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    #38bdf8 0deg,
+    #7c3aed 338deg,
+    rgba(255, 255, 255, 0.08) 338deg
+  );
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+
+/* =========================================================
+   INNER CIRCLE
+   ========================================================= */
+
+.top-candidate .inner-circle {
+  width: 140px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  background: #08111f;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+
+/* =========================================================
+   SCORE
+   ========================================================= */
+
+.top-candidate .inner-circle h1 {
+  margin: 0;
+
+  color: #f8fafc;
+
+  font-size: 42px;
+
+  line-height: 1;
+
+  font-weight: 800;
+}
+
+.top-candidate .inner-circle small {
+  margin-top: 8px;
+
+  color: #94a3b8;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   BEST CANDIDATE BUTTON
+   ========================================================= */
+
+.top-candidate .resume-btn {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 15px 28px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #38bdf8,
+    #6366f1
+  );
+
+  color: white;
+
+  font-weight: 700;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.top-candidate .resume-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.top-candidate .resume-btn:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 10px 25px rgba(56, 189, 248, 0.2);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .top-candidate {
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 35px 25px;
+
+    gap: 35px;
+  }
+
+  .top-candidate .candidate-left {
+    width: 100%;
+  }
+
+  .top-candidate .badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .top-candidate .candidate-left h2 {
+    font-size: 34px;
+  }
+
+  .top-candidate .candidate-left > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .top-candidate .candidate-skills {
+    justify-content: center;
+  }
+
+  .top-candidate .candidate-right {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .top-candidate {
+    padding: 28px 20px;
+
+    border-radius: 22px;
+  }
+
+  .top-candidate .candidate-left h2 {
+    font-size: 27px;
+  }
+
+  .top-candidate .score-circle {
+    width: 165px;
+    height: 165px;
+  }
+
+  .top-candidate .inner-circle {
+    width: 122px;
+    height: 122px;
+  }
+
+  .top-candidate .inner-circle h1 {
+    font-size: 30px;
+  }
+}

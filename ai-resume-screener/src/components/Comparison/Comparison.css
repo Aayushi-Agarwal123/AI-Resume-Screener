@@ -1,0 +1,483 @@
+/* =====================================================
+   CANDIDATE COMPARISON
+   ===================================================== */
+
+.comparison-section {
+  width: 100%;
+  margin-top: 30px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.comparison-section *,
+.comparison-section *::before,
+.comparison-section *::after {
+  box-sizing: border-box;
+}
+
+
+/* ================= HEADER ================= */
+
+.comparison-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.comparison-header h2 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.comparison-header p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.candidate-count {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* ================= GRID ================= */
+
+.comparison-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+
+  align-items: stretch;
+}
+
+
+/* ================= CARD ================= */
+
+.comparison-card {
+  width: 100%;
+  min-width: 0;
+
+  padding: 22px;
+
+  background: #101c2c;
+
+  border: 1px solid #1e2f47;
+
+  border-radius: 18px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: stretch;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  min-height: 520px;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.comparison-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #2563eb;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ================= #1 CARD ================= */
+
+.comparison-card.best-comparison-card {
+  border-color: rgba(56, 189, 248, 0.45);
+
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.08);
+}
+
+
+/* ================= RANK ================= */
+
+.comparison-rank {
+  align-self: flex-start;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+
+  padding: 6px 12px;
+
+  margin-bottom: 14px;
+
+  border-radius: 999px;
+
+  background: #1e3a5f;
+
+  color: #cbd5e1;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+.best-comparison-card
+.comparison-rank {
+  background:
+    linear-gradient(
+      135deg,
+      #f59e0b,
+      #d97706
+    );
+
+  color: white;
+}
+
+
+/* ================= NAME ================= */
+
+.comparison-name {
+  margin: 0 0 16px;
+
+  min-height: 48px;
+
+  color: #38bdf8;
+
+  font-size: 18px;
+
+  font-weight: 800;
+
+  line-height: 1.3;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ================= ATS ================= */
+
+.comparison-score {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 8px;
+}
+
+.comparison-score span {
+  color: #94a3b8;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.comparison-score strong {
+  color: #f8fafc;
+
+  font-size: 24px;
+
+  font-weight: 900;
+}
+
+
+/* ================= PROGRESS ================= */
+
+.comparison-progress {
+  width: 100%;
+
+  height: 6px;
+
+  margin-bottom: 18px;
+
+  background: #1d2d42;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+}
+
+.comparison-progress-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #2563eb,
+      #38bdf8
+    );
+
+  transition:
+    width 0.5s ease;
+}
+
+
+/* ================= BASIC INFO ================= */
+
+.comparison-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 8px;
+
+  margin-bottom: 16px;
+}
+
+.comparison-info > div {
+  min-width: 0;
+
+  min-height: 64px;
+
+  padding: 10px;
+
+  background: #0a1320;
+
+  border:
+    1px solid #1a2a40;
+
+  border-radius: 9px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: 4px;
+}
+
+.comparison-info span {
+  color: #64748b;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+.comparison-info strong {
+  color: #f1f5f9;
+
+  font-size: 12px;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ================= SKILLS ================= */
+
+.skill-box {
+  width: 100%;
+
+  padding: 12px;
+
+  margin-bottom: 12px;
+
+  border-radius: 12px;
+}
+
+.matched-box {
+  background:
+    rgba(16, 185, 129, 0.05);
+
+  border:
+    1px solid rgba(16, 185, 129, 0.18);
+}
+
+.missing-box {
+  background:
+    rgba(244, 63, 94, 0.05);
+
+  border:
+    1px solid rgba(244, 63, 94, 0.18);
+}
+
+
+/* ================= SKILL TITLE ================= */
+
+.skill-title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-bottom: 9px;
+}
+
+.skill-title strong {
+  flex: 1;
+
+  color: #f1f5f9;
+
+  font-size: 13px;
+}
+
+.skill-title small {
+  width: 22px;
+
+  height: 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(148, 163, 184, 0.15);
+
+  color: #cbd5e1;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+/* ================= SKILL LIST ================= */
+
+.skill-list {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+}
+
+.skill-tag {
+  padding: 5px 8px;
+
+  border-radius: 6px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+.matched-tag {
+  color: #5eead4;
+
+  background:
+    rgba(16, 185, 129, 0.12);
+
+  border:
+    1px solid rgba(16, 185, 129, 0.18);
+}
+
+.missing-tag {
+  color: #fda4af;
+
+  background:
+    rgba(244, 63, 94, 0.12);
+
+  border:
+    1px solid rgba(244, 63, 94, 0.18);
+}
+
+.empty-skill {
+  margin: 0;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+}
+
+
+/* ================= AI RECOMMENDATION ================= */
+
+.recommendation-box {
+  margin-top: auto;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  background:
+    rgba(99, 102, 241, 0.08);
+
+  border:
+    1px solid rgba(99, 102, 241, 0.2);
+}
+
+.recommendation-title {
+  margin-bottom: 6px;
+
+  color: #a5b4fc;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+.recommendation-box p {
+  margin: 4px 0;
+
+  color: #cbd5e1;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1100px) {
+
+  .comparison-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .comparison-card {
+    min-height: auto;
+  }
+
+}

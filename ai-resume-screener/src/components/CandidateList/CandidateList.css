@@ -1,0 +1,163 @@
+.candidate-section {
+  width: 100%;
+  margin-top: 40px;
+}
+
+.candidate-section h2 {
+  margin-bottom: 8px;
+}
+
+.candidate-count {
+  margin-bottom: 20px;
+  color: #a8b3c7;
+}
+
+.candidate-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.candidate-card {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: 28px;
+
+  background: #16243a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+
+  transition: all 0.25s ease;
+
+  overflow: hidden;
+}
+
+.candidate-card:hover {
+  transform: translateY(-4px);
+  border-color: #28b6ff;
+}
+
+.candidate-card.active {
+  border: 2px solid #20c7ff;
+  box-shadow: 0 0 25px rgba(32, 199, 255, 0.18);
+}
+
+.candidate-card h3 {
+  margin: 0 0 12px;
+
+  font-size: 20px;
+  color: white;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.candidate-number {
+  color: #9aa9bd;
+  margin-bottom: 18px;
+}
+
+.ats-label {
+  color: white;
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.ats-score {
+  font-size: 30px;
+  font-weight: 700;
+  color: #36c7ff;
+}
+
+.skills-info {
+  margin-top: 12px;
+  color: #d7dfeb;
+}
+
+.missing-info {
+  margin-top: 6px;
+  color: #ff9a9a;
+}
+
+.candidate-card button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 13px 16px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #2864e8;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.candidate-card button:hover {
+  background: #3474ff;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1000px) {
+
+  .candidate-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+
+  .candidate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .candidate-card {
+    padding: 22px;
+  }
+
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.skill-tag.matched {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.skill-tag.missing {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}

@@ -1,0 +1,22 @@
+.ai-insights{
+margin-top:50px;
+}
+
+.insight-card{
+padding:30px;
+border-radius:20px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(15px);
+}
+
+.insight-card h3{
+margin-bottom:20px;
+font-size:26px;
+}
+
+.insight-card p{
+margin:10px 0;
+color:#cbd5e1;
+line-height:1.8;
+}

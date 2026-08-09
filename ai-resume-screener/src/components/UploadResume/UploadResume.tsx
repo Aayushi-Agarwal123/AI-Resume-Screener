@@ -1,62 +1,83 @@
 import "./UploadResume.css";
 
 type UploadResumeProps = {
-  resumeFile: File | null;
-  setResumeFile: React.Dispatch<React.SetStateAction<File | null>>;
+  resumeFiles: File[];
+  setResumeFiles: React.Dispatch<React.SetStateAction<File[]>>;
 };
 
 function UploadResume({
-  resumeFile,
-  setResumeFile,
+  resumeFiles,
+  setResumeFiles,
 }: UploadResumeProps) {
-
-  const handleFileChange = (
+  const handleFiles = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    if (!e.target.files) return;
 
-    const file = e.target.files?.[0];
+    const files = Array.from(e.target.files);
 
-    if(file){
-      setResumeFile(file);
-    }
+    setResumeFiles((prev) => [...prev, ...files]);
+  };
 
+  const removeFile = (index: number) => {
+    setResumeFiles((prev) =>
+      prev.filter((_, i) => i !== index)
+    );
   };
 
   return (
-
     <div className="upload-card">
 
-      <label className="upload-box">
+      <label className="upload-area">
 
         <input
           type="file"
-          hidden
+          multiple
           accept=".pdf,.doc,.docx"
-          onChange={handleFileChange}
+          hidden
+          onChange={handleFiles}
         />
 
-        <div className="upload-circle">
-          📄
-        </div>
-
-        <h2>Upload Resume</h2>
+        <h2>📂 Upload Resumes</h2>
 
         <p>
-          Drag & Drop or Click to Upload
+          Drag & Drop or Click to upload multiple resumes
         </p>
-
-        {resumeFile && (
-          <div className="file-name">
-            ✅ {resumeFile.name}
-          </div>
-        )}
 
       </label>
 
+      {resumeFiles.length > 0 && (
+
+        <div className="resume-list">
+
+          <h3>
+            Uploaded Resumes ({resumeFiles.length})
+          </h3>
+
+          {resumeFiles.map((file, index) => (
+
+            <div className="resume-item" key={index}>
+
+              <span>
+                📄 {file.name}
+              </span>
+
+              <button
+                onClick={() => removeFile(index)}
+              >
+                ✖
+              </button>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      )}
+
     </div>
-
   );
-
 }
 
 export default UploadResume;

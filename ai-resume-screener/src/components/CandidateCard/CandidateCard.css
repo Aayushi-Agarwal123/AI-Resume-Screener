@@ -1,0 +1,77 @@
+.candidate-list{
+
+    margin-top:50px;
+
+}
+
+.candidate-list h2{
+
+    margin-bottom:25px;
+
+    font-size:30px;
+
+}
+
+.candidate-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+}
+
+.candidate-card{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:22px;
+
+    padding:28px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.candidate-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 60px rgba(37,99,235,.18);
+
+}
+
+.candidate-card h3{
+
+    margin-bottom:18px;
+
+    font-size:24px;
+
+}
+
+.candidate-score{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#38bdf8;
+
+    margin-bottom:20px;
+
+}
+
+.candidate-card p{
+
+    color:#cbd5e1;
+
+    margin:10px 0;
+
+}

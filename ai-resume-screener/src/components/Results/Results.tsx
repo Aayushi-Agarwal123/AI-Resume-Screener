@@ -1,54 +1,133 @@
 import "./Results.css";
 
-function Results() {
+import {
+  FiAward,
+  FiTrendingUp,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiUserCheck,
+} from "react-icons/fi";
+
+type ResultsProps = {
+  atsScore: number;
+  matchedSkills: string[];
+  missingSkills: string[];
+  recommendation: string;
+};
+
+function Results({
+  atsScore,
+  matchedSkills,
+  missingSkills,
+  recommendation,
+}: ResultsProps) {
+
+  let hiringStatus = "Rejected";
+
+  if (atsScore >= 85)
+    hiringStatus = "Strong";
+
+  else if (atsScore >= 70)
+    hiringStatus = "Good";
+
+  else if (atsScore >= 50)
+    hiringStatus = "Average";
+
   return (
-    <div className="results-card">
 
-      <div className="score-section">
+    <section className="results">
 
-        <div className="score-circle">
-          <span>86%</span>
+      <div className="stats-grid">
+
+        <div className="stat-card">
+
+          <FiAward />
+
+          <h2>{atsScore.toFixed(1)}%</h2>
+
+          <p>ATS Score</p>
+
         </div>
 
-        <div>
-          <h2>ATS Score</h2>
-          <p>Excellent Match</p>
+        <div className="stat-card">
+
+          <FiTrendingUp />
+
+          <h2>{matchedSkills.length}</h2>
+
+          <p>Matched Skills</p>
+
+        </div>
+
+        <div className="stat-card">
+
+          <FiUserCheck />
+
+          <h2>{hiringStatus}</h2>
+
+          <p>Hiring Status</p>
+
         </div>
 
       </div>
 
-      <div className="progress-bar">
+      <div className="results-grid">
 
-        <div className="progress-fill"></div>
-
-      </div>
-
-      <div className="skills-section">
-
-        <div className="skills-box">
+        <div className="glass-card">
 
           <h3>✅ Matched Skills</h3>
 
-          <div className="tags">
+          <div className="skills">
 
-            <span>React</span>
-            <span>Node.js</span>
-            <span>MongoDB</span>
-            <span>JavaScript</span>
+            {matchedSkills.length === 0 ? (
+
+              <p>No matched skills.</p>
+
+            ) : (
+
+              matchedSkills.map((skill) => (
+
+                <span key={skill}>
+
+                  <FiCheckCircle />
+
+                  {skill}
+
+                </span>
+
+              ))
+
+            )}
 
           </div>
 
         </div>
 
-        <div className="skills-box">
+        <div className="glass-card">
 
-          <h3>❌ Missing Skills</h3>
+          <h3>⚠ Missing Skills</h3>
 
-          <div className="tags">
+          <div className="skills">
 
-            <span>Docker</span>
-            <span>AWS</span>
-            <span>Redis</span>
+            {missingSkills.length === 0 ? (
+
+              <p>No missing skills 🎉</p>
+
+            ) : (
+
+              missingSkills.map((skill) => (
+
+                <span className="missing" key={skill}>
+
+                  <FiAlertCircle />
+
+                  {skill}
+
+                </span>
+
+              ))
+
+            )}
 
           </div>
 
@@ -56,14 +135,18 @@ function Results() {
 
       </div>
 
-      <div className="recommendation">
+      <div className="recommendation-card">
 
-        ⭐ Strong candidate. Resume matches most job requirements.
+        <h3>🤖 AI Recommendation</h3>
+
+        <p>{recommendation}</p>
 
       </div>
 
-    </div>
+    </section>
+
   );
+
 }
 
 export default Results;
