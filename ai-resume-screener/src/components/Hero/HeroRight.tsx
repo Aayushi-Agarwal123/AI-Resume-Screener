@@ -1,10 +1,9 @@
 import Dashboard from "./Dashboard";
-import FloatingCard from "./FloatingCard";
+import FloatingCard from "./Floatingcard";
 
 function HeroRight() {
   return (
     <div className="hero-right">
-
       <Dashboard />
 
       <FloatingCard
@@ -24,7 +23,6 @@ function HeroRight() {
         subtitle="ATS Score Ready"
         className="card-bottom"
       />
-
     </div>
   );
 }
