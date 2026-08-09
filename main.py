@@ -30,7 +30,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:3000",
-        "https://ai-resume-screener-hr6x.vercel.app/analyze",
+        "https://ai-resume-screener-hr6x.vercel.app",
     ],
     allow_credentials=False,
     allow_methods=["*"],
