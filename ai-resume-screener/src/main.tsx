@@ -1,7 +1,8 @@
 import { StrictMode, type ComponentType } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.tsx'
+import './ui-overrides.css';
+import App from './App.tsx';
 
 const AppComponent = App as ComponentType
 
